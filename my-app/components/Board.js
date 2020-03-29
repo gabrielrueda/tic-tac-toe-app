@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import renderIf from './renderIf'
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-native';
 
-export default function Board() {
+export default function Board(props) {
     const [state, setState] = useState({
         turnCounter: 1,
         // 1  4  7 
@@ -15,7 +15,6 @@ export default function Board() {
             [0,0,0]
         ],
         status: false,
-        name: "Gabriel",
     });
     const borderWidth = 3;
     const ClickMe = (y,x) => {
@@ -31,7 +30,12 @@ export default function Board() {
             setState(newState);
         }
     };
-    
+    const updateMain = useEffect(() => {
+        props.updateCounter(() => {
+            return state.turnCounter;
+        });
+    });
+
     const resetBoard = () => {
         let newState = Object.assign({}, state);
         newState.box = [
@@ -76,7 +80,6 @@ export default function Board() {
     }
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Tic Tac Toe</Text>
             <View style={styles.grid}>
                 {/* Column 1 */}
                 <View>
@@ -115,9 +118,6 @@ export default function Board() {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View>
-                <Text style={styles.name}>{state.name}</Text>
-            </View>
             <Button title='Reset Board' onPress={resetBoard}></Button>
             <Text>{state.status.toString()}</Text>
         </View>
@@ -137,19 +137,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         marginTop: 50,
+        borderColor: 'black',
+        borderWidth: 1,
     },
     xo: {
         alignSelf: 'center',
         fontSize: 40,
     },
     container:{
-
+        flex: 1,
     },
-    name:{
-        fontSize: 48,
-    },
-    title: {
-        fontSize: 48,
-        margin: 20,
-      },
 });
