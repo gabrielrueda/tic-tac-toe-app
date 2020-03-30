@@ -35,7 +35,6 @@ export default function Board(props) {
             return state.turnCounter;
         });
     });
-
     const resetBoard = () => {
         let newState = Object.assign({}, state);
         newState.box = [
@@ -55,7 +54,7 @@ export default function Board(props) {
                 if(item === 0){
                     return (Math.random()+100);
                 }else{
-                    return item
+                    return item;
                 }
             })
         });

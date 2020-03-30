@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-native';
 
-export default function TurnIndicators() {
+export default function TurnIndicators(props) {
     const [state, setState] = useState({
         name: 'Gabriel',
         wins: [0,0],
+        turnText: ["Your Turn", "", "Your Turn"],
     });
+    const b_color = (status) => {
+        if(props.turn % 2 === status){ return "green"; }else{ return "blue"; }
+          
+    }
     return(
         <View style={styles.container}>
             <View>
-                <View style={styles.profContainer}> 
+                <View style={[styles.profContainer, {borderColor:b_color(1)}]}> 
                     <Image style={styles.img} 
                     // Image Does not work
                         source={require('../assets/x.png')}
@@ -17,11 +22,11 @@ export default function TurnIndicators() {
                     <Text style={styles.name}>{state.name}</Text>
                     <Text style={styles.name}>{state.wins[0]}</Text>
                 </View>
-                <Text style={styles.name}>Your Turn</Text>
+                <Text style={styles.name}>{state.turnText[props.turn % 2]}</Text>
             </View>
             <Text>VS</Text>
             <View>
-                <View style={styles.profContainer}> 
+                <View style={[styles.profContainer, {borderColor:b_color(0)}]}> 
                     <Image style={styles.img} 
                     // Image Does not work
                         source={require('../assets/o.png')}
@@ -29,7 +34,7 @@ export default function TurnIndicators() {
                     <Text style={styles.name}>Computer</Text>
                     <Text style={styles.name}>{state.wins[0]}</Text>
                 </View>
-                <Text style={styles.name}>Your Turn</Text>
+                <Text style={styles.name}>{state.turnText[(props.turn % 2) +1]}</Text>
             </View>
         </View>
     );
@@ -55,7 +60,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     profContainer: {
-        borderColor: 'black',
         borderWidth: 3,
         height: 150,
         padding: 12,

@@ -4,10 +4,14 @@ import Board from './components/Board.js'
 import TurnIndicators from './components/TurnIndicators.js';
 
 export default function App() {
-  const [state, setState] = useState(1);
+  const [state, setState] = useState({
+    tInd: 3,
+  });
 
   function updateCounter(value){
-    setState(value);
+    let nState = Object.assign({}, state);
+    nState.tInd = value;
+    setState(nState);
   }
 
   return (
@@ -16,9 +20,9 @@ export default function App() {
       {/* <TouchableOpacity>
         <Text style={styles.button}>PLAY</Text>
       </TouchableOpacity> */}
-      <Text>{state}</Text>
+      <Text>{state.tInd}</Text>
       <Board updateCounter={updateCounter} test="It Works"/>
-      <TurnIndicators />
+      <TurnIndicators props={state.tInd}/>
     </View>
   );
 }
