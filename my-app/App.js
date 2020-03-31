@@ -5,12 +5,15 @@ import TurnIndicators from './components/TurnIndicators.js';
 
 export default function App() {
   const [state, setState] = useState({
-    tInd: 3,
+    turnsZ: 1,
+    score: [0,0],
   });
 
-  function updateCounter(value){
+  function updateCounter(turns, scoreAdd1, scoreAdd2){
     let nState = Object.assign({}, state);
-    nState.tInd = value;
+    nState.turnsZ = turns;
+    nState.score[0] += scoreAdd1;
+    nState.score[1] += scoreAdd2;
     setState(nState);
   }
 
@@ -20,9 +23,10 @@ export default function App() {
       {/* <TouchableOpacity>
         <Text style={styles.button}>PLAY</Text>
       </TouchableOpacity> */}
-      <Text>{state.tInd}</Text>
+      <Text>{state.turnsZ}</Text>
+  
       <Board updateCounter={updateCounter} test="It Works"/>
-      <TurnIndicators props={state.tInd}/>
+      <TurnIndicators turns={state.turnsZ} score={state.score}/>
     </View>
   );
 }

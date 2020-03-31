@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-n
 
 export default function Board(props) {
     const [state, setState] = useState({
-        turnCounter: 1,
+        turnCounter: getRandomInt(2),
         // 1  4  7 
         // 2  5  8
         // 3  6  9
@@ -14,7 +14,6 @@ export default function Board(props) {
             [0,0,0],
             [0,0,0]
         ],
-        status: false,
     });
     const borderWidth = 3;
     const ClickMe = (y,x) => {
@@ -25,16 +24,41 @@ export default function Board(props) {
             }else{
                 newState.box[y][x] = 1;
             }
-            newState.turnCounter++;
-            newState.status = solver().toString();
+            let final = solver()
+            if(final === 1){
+                if(newState.turnCounter%2 == 0){
+                    newState.turnCounter = getRandomInt(2);
+                    props.updateCounter(newState.turnCounter , 0, 1);
+                }else{
+                    newState.turnCounter = getRandomInt(2);
+                    props.updateCounter(newState.turnCounter , 1 ,0);
+                }
+                newState.box = [
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0]
+                ];
+            }else if(final === 2){
+                newState.turnCounter = getRandomInt(2);
+                props.updateCounter(state.turnCounter, 0, 0);
+                newState.box = [
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0]
+                ];
+            }else{
+                props.updateCounter(state.turnCounter, 0, 0);
+                newState.turnCounter++;
+            }
+           
             setState(newState);
         }
     };
-    const updateMain = useEffect(() => {
-        props.updateCounter(() => {
-            return state.turnCounter;
-        });
-    });
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
+
     const resetBoard = () => {
         let newState = Object.assign({}, state);
         newState.box = [
@@ -42,16 +66,17 @@ export default function Board(props) {
             [0,0,0],
             [0,0,0]
         ];
-        newState.status = false
-        newState.turnCounter = 1
+        newState.turnCounter = getRandomInt(2);
+        props.updateCounter(newState.turnCounter, 0 ,0)
         setState(newState);
     }
     const solver = () => {
-        let win = false;
+        let win = 2;
         const tempArray = state.box;
         const newArray = tempArray.map(function(arrays){
             return arrays.map(function(item){
                 if(item === 0){
+                    win = 1000
                     return (Math.random()+100);
                 }else{
                     return item;
@@ -62,15 +87,15 @@ export default function Board(props) {
         newArray.map(function(col){
             //Rows
             if(col[0] === col[1] && col[0] === col[2]){
-                win = true;
+                win = 1;
             }
             //Columns
             if(newArray[0][i] === newArray[1][i] && newArray[0][i] === newArray[2][i]){
-                win = true;
+                win = 1;
             }
             //Diagonals
             if(newArray[1][1] === newArray[0+i][0] && newArray[1][1] === newArray[2-i][2] && i !== 1){
-                win = true;
+                win = 1;
             }
             i++;
         })
@@ -118,7 +143,6 @@ export default function Board(props) {
                 </View>
             </View>
             <Button title='Reset Board' onPress={resetBoard}></Button>
-            <Text>{state.status.toString()}</Text>
         </View>
     );
     

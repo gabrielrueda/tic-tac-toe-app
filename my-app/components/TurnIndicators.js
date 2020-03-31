@@ -4,11 +4,10 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-n
 export default function TurnIndicators(props) {
     const [state, setState] = useState({
         name: 'Gabriel',
-        wins: [0,0],
         turnText: ["Your Turn", "", "Your Turn"],
     });
     const b_color = (status) => {
-        if(props.turn % 2 === status){ return "green"; }else{ return "blue"; }
+        if(props.turns % 2 === status){ return "green"; }else{ return "blue"; }
           
     }
     return(
@@ -20,9 +19,9 @@ export default function TurnIndicators(props) {
                         source={require('../assets/x.png')}
                     />
                     <Text style={styles.name}>{state.name}</Text>
-                    <Text style={styles.name}>{state.wins[0]}</Text>
+                    <Text style={styles.name}>{props.score[1]}</Text>
                 </View>
-                <Text style={styles.name}>{state.turnText[props.turn % 2]}</Text>
+                <Text style={styles.name}>{state.turnText[(props.turns % 2)+1]}</Text>
             </View>
             <Text>VS</Text>
             <View>
@@ -32,9 +31,9 @@ export default function TurnIndicators(props) {
                         source={require('../assets/o.png')}
                     />
                     <Text style={styles.name}>Computer</Text>
-                    <Text style={styles.name}>{state.wins[0]}</Text>
+                    <Text style={styles.name}>{props.score[0]}</Text>
                 </View>
-                <Text style={styles.name}>{state.turnText[(props.turn % 2) +1]}</Text>
+                <Text style={styles.name}>{state.turnText[(props.turns % 2)]}</Text>
             </View>
         </View>
     );
