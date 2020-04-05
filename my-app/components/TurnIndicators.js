@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 24,
         alignSelf: 'center',
+        fontFamily: "cornerstone",
     },
     container: {
         flex: 1,
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         width: "100%",
+        backgroundColor: "red",
+        height: 100
         // alignContent: "space-between",
     },
     img: {

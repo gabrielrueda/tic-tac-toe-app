@@ -28,10 +28,10 @@ export default function Board(props) {
             if(final === 1){
                 if(newState.turnCounter%2 == 0){
                     newState.turnCounter = getRandomInt(2);
-                    props.updateCounter(newState.turnCounter , 0, 1);
+                    props.updateCounter(newState.turnCounter , 0, 1, false);
                 }else{
                     newState.turnCounter = getRandomInt(2);
-                    props.updateCounter(newState.turnCounter , 1 ,0);
+                    props.updateCounter(newState.turnCounter , 1 ,0, false);
                 }
                 newState.box = [
                     [0,0,0],
@@ -40,14 +40,14 @@ export default function Board(props) {
                 ];
             }else if(final === 2){
                 newState.turnCounter = getRandomInt(2);
-                props.updateCounter(state.turnCounter, 0, 0);
+                props.updateCounter(state.turnCounter, 0, 0, true);
                 newState.box = [
                     [0,0,0],
                     [0,0,0],
                     [0,0,0]
                 ];
             }else{
-                props.updateCounter(state.turnCounter, 0, 0);
+                props.updateCounter(state.turnCounter, 0, 0, false);
                 newState.turnCounter++;
             }
            
@@ -58,7 +58,6 @@ export default function Board(props) {
     function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
     }
-
     const resetBoard = () => {
         let newState = Object.assign({}, state);
         newState.box = [
@@ -67,7 +66,7 @@ export default function Board(props) {
             [0,0,0]
         ];
         newState.turnCounter = getRandomInt(2);
-        props.updateCounter(newState.turnCounter, 0 ,0)
+        props.updateCounter(newState.turnCounter, 0 ,0, false)
         setState(newState);
     }
     const solver = () => {
@@ -160,14 +159,17 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         marginTop: 50,
-        borderColor: 'black',
-        borderWidth: 1,
+        // borderColor: 'black',
+        // borderWidth: 1,
+        alignSelf: "center"
     },
     xo: {
         alignSelf: 'center',
         fontSize: 40,
     },
     container:{
-        flex: 1,
+        // flex: 1,
+        // position: "relative",
+        height: 350,
     },
 });
