@@ -1,72 +1,40 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-native';
+import { globalStyles } from '../styles/global';
 
 export default function TurnIndicators(props) {
     const [state, setState] = useState({
-        name: 'Gabriel',
-        turnText: ["Your Turn", "", "Your Turn"],
+        name: props.names,
+        turnText: ["", "Your Turn"],
     });
     const b_color = (status) => {
-        if(props.turns % 2 === status){ return "green"; }else{ return "blue"; }
-          
+        if(props.turns % 2 === status){ return lightGreen; }else{ return darkGreen; }
     }
+    //Font Size relative to length:
+    //                 0  1  2  3  4  5  6  7  8  9  10
+    const fontSizes = [24,24,24,24,24,24,24,24,21,18,17]
     return(
-        <View style={styles.container}>
+        <View style={globalStyles.containerTI}>
             <View>
-                <View style={[styles.profContainer, {borderColor:b_color(1)}]}> 
-                    <Image style={styles.img} 
-                    // Image Does not work
-                        source={require('../assets/x.png')}
-                    />
-                    <Text style={styles.name}>{state.name}</Text>
-                    <Text style={styles.name}>{props.score[1]}</Text>
+                <View style={[globalStyles.turnIndicatorBox, {borderColor:b_color(1)}]}> 
+                    <Text style={globalStyles.gamePiece}>X</Text>
+                    <Text style={[globalStyles.generalText, {fontSize: fontSizes[state.name[0].length]}]}>{state.name[0]}</Text>
+                    <Text style={globalStyles.generalText}>{props.score[1]}</Text>
                 </View>
-                <Text style={styles.name}>{state.turnText[(props.turns % 2)+1]}</Text>
+                <Text style={globalStyles.generalText}>{state.turnText[Math.abs((props.turns % 2)-1)]}</Text>
             </View>
-            <Text>VS</Text>
+            <Text style={globalStyles.vsSign}>VS</Text>
             <View>
-                <View style={[styles.profContainer, {borderColor:b_color(0)}]}> 
-                    <Image style={styles.img} 
-                    // Image Does not work
-                        source={require('../assets/o.png')}
-                    />
-                    <Text style={styles.name}>Computer</Text>
-                    <Text style={styles.name}>{props.score[0]}</Text>
+                <View style={[globalStyles.turnIndicatorBox, {borderColor:b_color(0)}]}> 
+                    <Text style={globalStyles.gamePiece}>O</Text>
+                    <Text style={[globalStyles.generalText, {fontSize: fontSizes[state.name[1].length]}]}>{state.name[1]}</Text>
+                    <Text style={globalStyles.generalText}>{props.score[0]}</Text>
                 </View>
-                <Text style={styles.name}>{state.turnText[(props.turns % 2)]}</Text>
+                <Text style={globalStyles.generalText}>{state.turnText[(props.turns % 2)]}</Text>
             </View>
         </View>
     );
 }
-const img_size = 40;
-const styles = StyleSheet.create({
-    name: {
-        fontSize: 24,
-        alignSelf: 'center',
-        fontFamily: "cornerstone",
-    },
-    container: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        borderColor: 'black',
-        borderWidth: 1,
-        width: "100%",
-        backgroundColor: "red",
-        height: 100
-        // alignContent: "space-between",
-    },
-    img: {
-        width: img_size,
-        height: img_size,
-        alignSelf: 'center',
-    },
-    profContainer: {
-        borderWidth: 3,
-        height: 150,
-        padding: 12,
-        borderRadius: 10,
-        margin: 20,
-        justifyContent: 'center',
-    },
-});
+const lightGreen = "#1AC999";
+const darkGreen = "#067146";
+

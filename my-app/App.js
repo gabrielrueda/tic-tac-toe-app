@@ -2,49 +2,72 @@ import React, { Component, useState } from 'react';
 //For react-navigation 4.0+
 import StartMenu from './components/StartMenu';
 import Game from './components/Game';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 import Game2 from './components/Game2';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
 
-//import all the screens we are going to switch 
-// const App = createStackNavigator({
-//   //Constant which holds all the screens like index of any book 
-//     FirstPage: { screen: StartMenu }, 
-//     //First entry by default be our first screen if we do not define initialRouteName
-//     SecondPage: { screen: Game }, 
-//   },
-//   {
-//     initialRouteName: 'FirstPage',
-//   }
-// );
-// export default createAppContainer(App);
 
-// class App extends React.Component{
-//   render() {
-//     return ( <View> {this.displa()} </View> );
-// }
-// }
+const getFonts = () => {
+  return Font.loadAsync({
+    'cornerstone': require('./assets/fonts/Cornerstone.ttf'),
+    'underground': require('./assets/fonts/UndergroundNF.ttf'),
+  });
+}
+
 export default function App(){
-  const [state, setState] = useState(0)
-  const screenChange = (id) => {
-    setState(id);
+  const [state, setState] = useState({
+    screen: 0,
+    fontsLoaded: false,
+    names: ["Player 1 "," Player 2"],
+  });
+ 
+  const nameChange = (name1,name2) => {
+      let nState = Object.assign({}, state);
+      nState.names = [name1, name2];
+      setState(nState);
+  }
+  
+  const screenChange = (id,names) => {
+    let nState = Object.assign({}, state);
+    nState.screen = id;
+    nState.names = names;
+    setState(nState);
   }
 
   const display = () => {
-    if(state === 0){
-      return <StartMenu click={screenChange}/>
+    if(state.screen === 0){
+      return <StartMenu nameChange={nameChange} click={screenChange}/>
     }else{
-      return <Game />
+      return <Game names={state.names}/>
     }
   }
+  if(state.fontsLoaded){
     return(
-    <View>{display()}</View>
+    <View style={styles.container}>{display()}</View>
   );
+    }else{
+      
+    return(
+      <AppLoading 
+        startAsync={getFonts}
+        onFinish={() => {
+          let nState = Object.assign({}, state);
+          nState.fontsLoaded = true;
+          setState(nState);
+        }}
+      />
+      );
+    }
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: 40,
-    padding: 30,
-    position: "relative"
+    backgroundColor: "#B1DEDE",
+    flex: 1,
     },
 });
+
+
+
+  

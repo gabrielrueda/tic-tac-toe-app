@@ -2,22 +2,16 @@ import React, { useState, useCallback } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Board from './Board.js'
 import TurnIndicators from './TurnIndicators.js';
-import StartMenu from './StartMenu.js';
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
+import { globalStyles } from '../styles/global.js';
 
-const getFonts = () => {
-  return Font.loadAsync({
-    'cornerstone': require('../assets/fonts/Cornerstone.ttf'),
-  });
-}
 
-export default function Game() {
+
+
+export default function Game(props) {
   const [state, setState] = useState({
     turnsZ: 1,
     score: [0,0],
-    names: ["Gabriel","Fred"],
-    fontsLoaded: false,
+    names: props.names,
   });
 
   function updateCounter(turns, scoreAdd1, scoreAdd2, tie){
@@ -34,55 +28,21 @@ export default function Game() {
   }
 
   const alertWin = (id) => {
-    Alert.alert('Congratutions!', (state.names[1] + ' Won!!'));
+    Alert.alert('Congratutions!', (state.names[id] + ' Won!!'));
   }
 
   const alertTie = () => {
     Alert.alert('It is a Tie.', 'It be like that');
   }
-  if(state.fontsLoaded){
     return (
-      <View style={styles.container}>
-        {/* <StartMenu /> */}
-        <Text style={styles.title}>TIC TAC TOE</Text>
+      <View style={globalStyles.containerG}>
+        <Text style={globalStyles.title}>TIC TAC TOE</Text>
     
         <Board updateCounter={updateCounter} test="It Works"/>
-        <TurnIndicators turns={state.turnsZ} score={state.score}/>
+        <TurnIndicators names={state.names} turns={state.turnsZ} score={state.score}/>
       </View>
     );
-  }else{
-    return(
-    <AppLoading 
-      startAsync={getFonts}
-      onFinish={() => {
-        let nState = Object.assign({}, state);
-        nState.fontsLoaded = true;
-        setState(nState);
-      }}
-    />
-    );
-  }
+ 
+  
   
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  title: {
-    fontSize: 48,
-    marginTop: 23,
-    marginBottom: 2,
-    alignSelf: "center",
-    fontFamily: "cornerstone",
-  },
-  button: {
-    borderWidth: 1,
-    borderColor: 'black',
-    backgroundColor: 'coral',
-    padding: 3,
-    fontSize: 24,
-  }
-});
