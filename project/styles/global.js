@@ -13,15 +13,25 @@ export const globalStyles = StyleSheet.create({
     },
     gamePiece: {
         alignSelf: 'center',
-        fontSize: 67,
+        fontSize: (constants.width < 390 ? (67 * (constants.width / 390)) : 67),
         fontFamily: 'underground'
     },
     generalText: {
-        fontSize: 24,
+        fontSize: (constants.width < 390 ? (24 * (constants.width / 390)) : 24),
         textAlign:"center",
         textAlignVertical:"center",
         fontFamily: "cornerstone",
-        marginBottom: 6,
+        marginBottom: (constants.width < 390 ? (6 * (constants.width / 390)) : 6),
+    },
+    inputBox: {
+        paddingHorizontal: 8,
+        paddingVertical: 6,
+        borderColor: constants.darkGreen,
+        borderWidth: constants.borderWidth,
+        borderRadius: constants.borderRadius,
+        backgroundColor: "white",
+        marginBottom: 60,
+        fontFamily: constants.defaultFont,
     },
     // StartMenu.js
     button: {
@@ -36,15 +46,15 @@ export const globalStyles = StyleSheet.create({
         textAlign: "center",
         fontFamily: constants.defaultFont,
     },
-    
+    //Turn Indicator.js
     turnIndicatorBox: {
         borderWidth: constants.borderWidth,
-        height: 160,
-        width: 130,
-        padding: 12,
+        height: (constants.width < 390 ? (160 * (constants.width / 390)) : 160),
+        width: (constants.width < 390 ? (130 * (constants.width / 390)) : 130),
+        padding: (constants.width < 390 ? (12 * (constants.width / 390)) : 12),
         backgroundColor: constants.lightGreen,
         borderRadius: constants.borderRadius,
-        margin: 20,
+        margin: (constants.width < 390 ? (20 * (constants.width / 390)) : 20),
         justifyContent: 'center',
     },
     vsSign :{
@@ -56,23 +66,15 @@ export const globalStyles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
+        width: constants.width,
     },
+    //Game.js
     containerG: {
         flex: 1,
         flexDirection: "column",
         justifyContent: "space-between",
         width: constants.width,
     
-    },
-    inputBox: {
-        paddingHorizontal: 8,
-        paddingVertical: 6,
-        borderColor: constants.darkGreen,
-        borderWidth: constants.borderWidth,
-        borderRadius: constants.borderRadius,
-        backgroundColor: "white",
-        marginBottom: 60,
-        fontFamily: constants.defaultFont,
     },
     //Board.js
     grid: {
