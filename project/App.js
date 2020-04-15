@@ -3,7 +3,6 @@ import React, { Component, useState } from 'react';
 import StartMenu from './components/StartMenu';
 import Game from './components/Game';
 import { StyleSheet, View, Text, Alert } from 'react-native';
-import Game2 from './components/Game2';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
