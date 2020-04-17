@@ -5,6 +5,7 @@ import Game from './components/Game';
 import { StyleSheet, View, Text, Alert } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
+import Gameover from './components/Gameover';
 
 
 const getFonts = () => {
@@ -35,11 +36,14 @@ export default function App(){
   }
 
   const display = () => {
-    if(state.screen === 0){
-      return <StartMenu nameChange={nameChange} click={screenChange}/>
-    }else{
-      return <Game names={state.names}/>
-    }
+    // if(state.screen === 0){
+    //   return <StartMenu nameChange={nameChange} click={screenChange}/>
+    // }else{
+    //   return <Game names={state.names}/>
+    // }
+    return(
+      <Gameover />
+      );
   }
   if(state.fontsLoaded){
     return(

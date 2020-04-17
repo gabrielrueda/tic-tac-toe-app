@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import renderIf from './renderIf'
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-native';
-import { globalStyles } from '../styles/global.js';
+import { globalStyles } from '../styles/Global.js';
 
 export default function Board(props) {
     const [state, setState] = useState({

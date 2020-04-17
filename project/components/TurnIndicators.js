@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-native';
-import { globalStyles } from '../styles/global';
+import { globalStyles } from '../styles/Global.js';
 
 const constants = require('../Constants.js')
 export default function TurnIndicators(props) {
@@ -11,11 +11,10 @@ export default function TurnIndicators(props) {
     const b_color = (status) => {
         if(props.turns % 2 === status){ return lightGreen; }else{ return darkGreen; }
     }
-    //Font Size relative to length:
-    //                 0  1  2  3  4  5  6  7  8  9  10
-    const fontSizes = [24,24,24,24,24,24,24,24,21,18,17]
-
     const getFontSize = (id) => {
+        //Font Size relative to length:
+        //                 0  1  2  3  4  5  6  7  8  9  10
+        let fontSizes = [24,24,24,24,24,24,24,24,21,18,17]
         return (constants.width < 390 ? (fontSizes[id] * (constants.width / 390)) : fontSizes[id]);
     };
 

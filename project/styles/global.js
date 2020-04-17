@@ -5,7 +5,7 @@ const constants = require('../Constants.js');
 export const globalStyles = StyleSheet.create({
     //General Use
     title: {
-        fontSize: 48,
+        fontSize: (constants.width < 390 ? (48 * (constants.width / 390)) : 48),
         marginBottom: 30,
         marginTop: 40,
         fontFamily: constants.defaultFont,
@@ -26,6 +26,7 @@ export const globalStyles = StyleSheet.create({
     inputBox: {
         paddingHorizontal: 8,
         paddingVertical: 6,
+        fontSize: (constants.width < 390 ? (24 * (constants.width / 390)) : 24),
         borderColor: constants.darkGreen,
         borderWidth: constants.borderWidth,
         borderRadius: constants.borderRadius,
@@ -94,4 +95,13 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: constants.darkGreen,
         borderRadius: constants.borderRadius,
     },
+    //Gameover.js
+    containerGO: {
+        backgroundColor: constants.lightBlue,
+        borderRadius: constants.borderRadius,
+        borderColor: constants.darkGreen,
+        borderWidth: constants.borderWidth,
+        margin: 30, 
+        padding: 10,
+    }
 })

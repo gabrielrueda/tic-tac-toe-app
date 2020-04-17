@@ -2,21 +2,18 @@ import React, { useState, useCallback } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Board from './Board.js'
 import TurnIndicators from './TurnIndicators.js';
-import { globalStyles } from '../styles/global.js';
-
-
-
+import { globalStyles } from '../styles/Global.js';
 
 export default function Game(props) {
   const [state, setState] = useState({
-    turnsZ: 1,
+    turnIndicator: 1,
     score: [0,0],
     names: props.names,
   });
 
   function updateCounter(turns, scoreAdd1, scoreAdd2, tie){
     let nState = Object.assign({}, state);
-    nState.turnsZ = turns;
+    nState.turnIndicator = turns;
     if(scoreAdd1 > 0 || scoreAdd2 > 0){
       alertWin(scoreAdd1);
       nState.score[0] += scoreAdd1;
@@ -39,7 +36,7 @@ export default function Game(props) {
         <Text style={globalStyles.title}>TIC TAC TOE</Text>
     
         <Board updateCounter={updateCounter} test="It Works"/>
-        <TurnIndicators names={state.names} turns={state.turnsZ} score={state.score}/>
+        <TurnIndicators names={state.names} turns={state.turnIndicator} score={state.score}/>
       </View>
     );
  
