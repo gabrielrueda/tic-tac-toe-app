@@ -101,7 +101,7 @@ export const globalStyles = StyleSheet.create({
         borderRadius: constants.borderRadius,
         borderColor: constants.darkGreen,
         borderWidth: constants.borderWidth,
-        margin: 30, 
+        marginHorizontal: 30,
         padding: 10,
     }
 })

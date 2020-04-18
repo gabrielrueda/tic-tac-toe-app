@@ -36,14 +36,12 @@ export default function App(){
   }
 
   const display = () => {
-    // if(state.screen === 0){
-    //   return <StartMenu nameChange={nameChange} click={screenChange}/>
-    // }else{
-    //   return <Game names={state.names}/>
-    // }
-    return(
-      <Gameover />
-      );
+    if(state.screen === 0){
+      return <StartMenu nameChange={nameChange} click={screenChange}/>
+    }else{
+      return <Game click={screenChange} names={state.names}/>
+    }
+
   }
   if(state.fontsLoaded){
     return(
@@ -73,4 +71,3 @@ const styles = StyleSheet.create({
 
 
 
-  
