@@ -5,7 +5,7 @@ import Game from './components/Game';
 import { StyleSheet, View, Text, Alert } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import Gameover from './components/Gameover';
+import Win from './components/Win';
 
 
 const getFonts = () => {

@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import Board from './Board.js'
 import TurnIndicators from './TurnIndicators.js';
 import { globalStyles } from '../styles/Global.js';
-import Gameover from './Gameover.js';
+import Win from './Win.js';
+import Tie from './Tie.js';
 
 export default function Game(props) {
   const [state, setState] = useState({
@@ -23,7 +24,7 @@ export default function Game(props) {
       nState.score[1] += scoreAdd2;
       nState.winner = scoreAdd1;
     }else if(tie === true){
-      nState.screen = 1;
+      nState.screen = 2;
     }
     setState(nState);
   }
@@ -36,18 +37,22 @@ export default function Game(props) {
       setState(nState);
     }
   }
-  // const alertWin = (id) => {
-  //   Alert.alert('Congratutions!', (state.names[id] + ' Won!!'));
-  // }
 
-  // const alertTie = () => {
-  //   Alert.alert('It is a Tie.', 'It be like that');
-  // }
   const displayMessage = () =>{
     if(state.screen === 0){
       return <Board updateCounter={updateCounter}/>
+    }else if(state.screen === 1){
+      //(-) Difference --> Player 1 | (+) Differnce --> Player 2
+      return <Win winner={state.names[state.winner]} playerInLead={state.names[checkInLead(state.score[0],state.score[1])]} scoreDifference={Math.abs(state.score[0] - state.score[1])}changeScreen={changeScreen}/>
     }else{
-      return <Gameover winner={state.names[state.winner]} scoreDifference={Math.abs(state.score[0] - state.score[1])}changeScreen={changeScreen}/>
+      return <Tie playerInLead={state.names[checkInLead(state.score[0],state.score[1])]} scoreDifference={Math.abs(state.score[0] - state.score[1])}changeScreen={changeScreen}/>
+    }
+  }
+  const checkInLead = (s1,s2) => {
+    if(s1 > s2){
+      return 1
+    }else{
+      return 0
     }
   }
     return (
