@@ -5,12 +5,12 @@ import { globalStyles } from '../styles/Global.js';
 
 export default function Board(props) {
     const [state, setState] = useState({
-        turnCounter: getRandomInt(2),
+        turnCounter: props.turnCounter,
         symbols: ["","O","X"],
         box: [
             [0,0,0],
             [0,0,0],
-            [0,0,0]
+            [0,0,0,0]
         ],
     });
     const ClickMe = (y,x) => {
@@ -27,10 +27,10 @@ export default function Board(props) {
             //WIN!
             if(final === 1){
                 let turnCounter = newState.turnCounter-1;
-                props.updateCounter(resetBoard(), (turnCounter%2), Math.abs((turnCounter % 2)-1), false);
+                props.updateCounter(resetBoard(turnCounter+1), (turnCounter%2), Math.abs((turnCounter % 2)-1), false);
             //Tie
             }else if(final === 2){
-                props.updateCounter(resetBoard(), 0, 0,true);
+                props.updateCounter(resetBoard(getRandomInt(2)), 0, 0,true);
             //No Winner Yet
             }else{
                 props.updateCounter(newState.turnCounter, 0, 0, false);
@@ -42,16 +42,17 @@ export default function Board(props) {
     function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
     }
-    const resetBoard = () => {
+    const resetBoard = (turnCounter) => {
         let newState = Object.assign({}, state);
         newState.box = [
             [0,0,0],
             [0,0,0],
             [0,0,0]
         ];
-        newState.turnCounter = getRandomInt(2);
+        // newState.turnCounter = getRandomInt(2);
+        newState.turnCounter = turnCounter;
         setState(newState);
-        return newState.turnCounter;
+        return turnCounter;
     }
     const solver = () => {
         let win = 2;

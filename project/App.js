@@ -5,7 +5,6 @@ import Game from './components/Game';
 import { StyleSheet, View, Text, Alert } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import Win from './components/Win';
 
 
 const getFonts = () => {
@@ -21,23 +20,22 @@ export default function App(){
     fontsLoaded: false,
     names: ["Player 1 "," Player 2"],
   });
- 
-  const nameChange = (name1,name2) => {
-      let nState = Object.assign({}, state);
-      nState.names = [name1, name2];
-      setState(nState);
-  }
-  
+
+  //When "PLAY" is pressed or "Return Home" is pressed
   const screenChange = (id,names) => {
-    let nState = Object.assign({}, state);
-    nState.screen = id;
-    nState.names = names;
-    setState(nState);
+    if(names[0].toUpperCase() === names[1].toUpperCase() || names[0].trim() === "" || names[1].trim() === ""){
+      Alert.alert('Same Name or No Name!', 'Each player must have a unique name.');
+    }else{
+      let nState = Object.assign({}, state);
+      nState.screen = id;
+      nState.names = names;
+      setState(nState);
+    }
   }
 
   const display = () => {
     if(state.screen === 0){
-      return <StartMenu nameChange={nameChange} click={screenChange}/>
+      return <StartMenu click={screenChange}/>
     }else{
       return <Game click={screenChange} names={state.names}/>
     }

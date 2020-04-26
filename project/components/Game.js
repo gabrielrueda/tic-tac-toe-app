@@ -40,7 +40,7 @@ export default function Game(props) {
 
   const displayMessage = () =>{
     if(state.screen === 0){
-      return <Board updateCounter={updateCounter}/>
+      return <Board turnCounter={state.turnIndicator} updateCounter={updateCounter}/>
     }else if(state.screen === 1){
       //(-) Difference --> Player 1 | (+) Differnce --> Player 2
       return <Win winner={state.names[state.winner]} playerInLead={state.names[checkInLead(state.score[0],state.score[1])]} scoreDifference={Math.abs(state.score[0] - state.score[1])}changeScreen={changeScreen}/>
