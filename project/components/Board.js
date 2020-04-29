@@ -10,7 +10,7 @@ export default function Board(props) {
         box: [
             [0,0,0],
             [0,0,0],
-            [0,0,0,0]
+            [0,0,0]
         ],
     });
     const ClickMe = (y,x) => {
@@ -27,13 +27,13 @@ export default function Board(props) {
             //WIN!
             if(final === 1){
                 let turnCounter = newState.turnCounter-1;
-                props.updateCounter(resetBoard(turnCounter+1), (turnCounter%2), Math.abs((turnCounter % 2)-1), false);
+                props.scoreUpdater(resetBoard(turnCounter+1), (turnCounter%2), Math.abs((turnCounter % 2)-1), false);
             //Tie
             }else if(final === 2){
-                props.updateCounter(resetBoard(getRandomInt(2)), 0, 0,true);
+                props.scoreUpdater(resetBoard(getRandomInt(2)), 0, 0,true);
             //No Winner Yet
             }else{
-                props.updateCounter(newState.turnCounter, 0, 0, false);
+                props.scoreUpdater(newState.turnCounter, 0, 0, false);
             } 
            
         }

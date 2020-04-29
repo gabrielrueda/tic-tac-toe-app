@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-native';
+import { Text, View } from 'react-native';
 import { globalStyles } from '../styles/Global.js';
 
 const constants = require('../Constants.js')
+
+//Main Function
 export default function TurnIndicators(props) {
     const [state, setState] = useState({
         name: props.names,
-        turnText: ["", "Your Turn"],
+        turnLabel: ["", "Your Turn"], // The "Your Turn" will be shown to the player whose turn it is, the other player will return ""
     });
-    const b_color = (status) => {
-        if(props.turns % 2 === status){ return lightGreen; }else{ return darkGreen; }
+    //The colour of the border is based on who's turn it is
+    const getBorderColour = (status) => {
+        if(props.turns % 2 === status){ return constants.lightGreen; }else{ return constants.darkGreen; }
     }
+
+    //The font size is based on character length of the name
     const getFontSize = (id) => {
         //Font Size relative to length:
         //                 0  1  2  3  4  5  6  7  8  9  10
@@ -20,26 +25,28 @@ export default function TurnIndicators(props) {
 
     return(
         <View style={globalStyles.containerTI}>
+            {/* The Player 1 Box */}
             <View>
-                <View style={[globalStyles.turnIndicatorBox, {borderColor:b_color(1)}]}> 
+                <View style={[globalStyles.turnIndicatorBox, {borderColor:getBorderColour(1)}]}> 
                     <Text style={globalStyles.gamePiece}>X</Text>
                     <Text style={[globalStyles.generalText, {fontSize:getFontSize(state.name[0].length)}]}>{state.name[0]}</Text>
                     <Text style={globalStyles.generalText}>{props.score[1]}</Text>
                 </View>
-                <Text style={globalStyles.generalText}>{state.turnText[Math.abs((props.turns % 2)-1)]}</Text>
+                <Text style={globalStyles.generalText}>{state.turnLabel[Math.abs((props.turns % 2)-1)]}</Text>
             </View>
+
+            {/* The "VS" */}
             <Text style={globalStyles.vsSign}>VS</Text>
+
+            {/* The Player 2 Box */}
             <View>
-                <View style={[globalStyles.turnIndicatorBox, {borderColor:b_color(0)}]}> 
+                <View style={[globalStyles.turnIndicatorBox, {borderColor:getBorderColour(0)}]}> 
                     <Text style={globalStyles.gamePiece}>O</Text>
-                    <Text style={[globalStyles.generalText, {fontSize:getFontSize(state.name[0].length)}]}>{state.name[1]}</Text>
+                    <Text style={[globalStyles.generalText, {fontSize:getFontSize(state.name[1].length)}]}>{state.name[1]}</Text>
                     <Text style={globalStyles.generalText}>{props.score[0]}</Text>
                 </View>
-                <Text style={globalStyles.generalText}>{state.turnText[(props.turns % 2)]}</Text>
+                <Text style={globalStyles.generalText}>{state.turnLabel[(props.turns % 2)]}</Text>
             </View>
         </View>
     );
 }
-const lightGreen = "#1AC999";
-const darkGreen = "#067146";
-
