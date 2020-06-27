@@ -6,8 +6,14 @@ export const globalStyles = StyleSheet.create({
     //General Use
     title: {
         fontSize: (constants.width < 390 ? (48 * (constants.width / 390)) : 48),
-        marginBottom: 30,
-        marginTop: 40,
+        marginBottom: ((constants.height/constants.width) > 2 ? (40) : 30),
+        marginTop: ((constants.height/constants.width) > 2 ? (50) : 30),
+        fontFamily: constants.defaultFont,
+        alignSelf: "center"
+    },
+    titleWinTieScreen: {
+        fontSize: (constants.width < 390 ? (48 * (constants.width / 390)) : 48),
+        marginVertical: 20,
         fontFamily: constants.defaultFont,
         alignSelf: "center"
     },
@@ -41,7 +47,7 @@ export const globalStyles = StyleSheet.create({
         borderColor: constants.darkGreen,
         backgroundColor: constants.lightGreen,
         padding: 10,
-        fontSize: 48,
+        fontSize: (constants.width < 390 ? (48 * (constants.width / 390)) : 48),
         alignSelf: "center",
         width: "80%",
         textAlign: "center",

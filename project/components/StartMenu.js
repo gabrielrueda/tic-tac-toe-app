@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Image, Button, TextInput, Alert } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Button, TextInput, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { globalStyles } from '../styles/Global.js';
-
-const constants = require('../Constants.js')
 
 // Main function
 export default function StartMenu(props) {
@@ -23,7 +21,8 @@ export default function StartMenu(props) {
     }
 
     return(
-        <View style={{marginHorizontal: 20}}> 
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+        <View style={{marginHorizontal: 20}}>
             {/* Title */}
             <Text numberOfLines={1} style={globalStyles.title}>Tic Tac Toe</Text>
              {/* Player 1 Text Box */}
@@ -47,6 +46,7 @@ export default function StartMenu(props) {
                 <Text style={globalStyles.button}>PLAY</Text>
             </TouchableOpacity>
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
