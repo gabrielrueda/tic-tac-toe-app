@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "project",
+    "name": "Just Tic Tac Toe",
     "slug": "project",
     "platforms": [
       "ios",
@@ -23,6 +23,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android":{
+      "package": "com.gabrielrueda.justtictactoe"
     }
   }
 }
