@@ -1,3 +1,1 @@
-*WIP*
-
-Tic Tac Toe app using React Native Framework  
+An app that allows the user to play Tic-Tac-Toe. The user plays with another player locally, which they share the same device. There is no single player mode avaliable, only 2-player mode is avaliable. The app allows users to type in their names. The app also keeps track of score and keeps track of who is winning so far.
